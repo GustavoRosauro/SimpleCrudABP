@@ -1,0 +1,88 @@
+<div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col col-md-6">
+          <h5 class="card-title">
+            {{ '::Menu:Persons' | abpLocalization }}
+          </h5>
+        </div>
+        <div class="text-end col col-md-6"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <nz-table #basicTable [nzData]="person.items">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of person.items">
+            <td>{{p.name}}</td>
+            <td>{{p.idade}}</td>
+            <td>{{p.email}}</td>
+            <div>
+              <!-- add the Delete button -->
+                <button  (click)="delete(p.id)">
+                    {{ '::Delete' | abpLocalization }}
+                </button>
+            </div>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col col-md-6">
+          <h5 class="card-title">{{ '::Menu:Persons' | abpLocalization }}</h5>
+        </div>        
+        <div class="text-end col col-md-6">
+            
+          <!-- Add the "new book" button here -->
+          <div class="text-lg-end pt-2">
+            <button id="create" class="btn btn-primary" type="button" (click)="createPerson()">
+              <i class="fa fa-plus mr-1"></i>
+              <span>{{ "::NewPerson" | abpLocalization }}</span>
+            </button>
+          </div>
+            
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <!-- ngx-datatable should be here! -->
+    </div>
+  </div>
+  <abp-modal [(visible)]="isModalOpen">
+    <ng-template #abpHeader>
+      <h3>{{ '::NewPerson' | abpLocalization }}</h3>
+    </ng-template>
+  
+    <ng-template #abpBody>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="form-group">
+          <label for="person-name">Name</label><span> * </span>
+          <input type="text" id="person-name" class="form-control" formControlName="name" autofocus />
+        </div>
+        <div class="form-group">
+          <label for="person-price">Email</label><span> * </span>
+          <input type="text" id="person-email" class="form-control" formControlName="email" />
+        </div>
+    
+        <div class="form-group">
+          <label for="person-idade">Idade</label><span> * </span>
+          <input type="number" id="person-idade" class="form-control" formControlName="idade" />
+        </div>
+      </form>
+    </ng-template>
+  
+    <ng-template #abpFooter>
+      <button type="button" class="btn btn-secondary" abpClose>
+        {{ '::Close' | abpLocalization }}
+      </button>
+    </ng-template>
+  </abp-modal>
